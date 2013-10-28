@@ -66,10 +66,38 @@ var setupPhotos = (function ($) {
         return function (img) {
             var elm = document.createElement('div');
             elm.className = 'photo';
+            elm.appendChild(buildFavouriteIcon(img.src));
             elm.appendChild(img);
             holder.appendChild(elm);
         };
     }
+
+    // ----
+
+    function getIconClass (imageUrl) {
+        return localStorage.getItem(imageUrl) ? 'fa-heart' : 'fa-heart-o';
+    }
+
+    function buildFavouriteIcon (imageUrl) {
+        var el = document.createElement('i');
+
+        el.className = 'js-fav-icon fa ' + getIconClass(imageUrl);
+        el.setAttribute('data-image-url', imageUrl);
+        
+        return el;
+    }
+
+    var toggleFavourite = function toggleFavouriteFunc () {
+        var $el = $(this),
+            imageUrl = $el.data('image-url');
+
+        localStorage.getItem(imageUrl) ? localStorage.removeItem(imageUrl) : localStorage.setItem(imageUrl, true);
+
+        $el.removeClass('fa-heart-o')
+           .addClass(getIconClass(imageUrl));
+    };
+
+    $('#photos').on('click', '.js-fav-icon', toggleFavourite);
 
     // ----
     

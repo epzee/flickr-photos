@@ -6,6 +6,7 @@ body {
 #photos {
     float: left;
     width: 100%;
+    -webkit-user-select: none; 
 }
 
 .photo {
@@ -19,4 +20,10 @@ body {
 .photo img {
     min-width: 160px;
     max-width: 240px;
+}
+
+i{
+    font-size: 24px;
+    line-height: 1.5em;
+    display: block!important;
 }
